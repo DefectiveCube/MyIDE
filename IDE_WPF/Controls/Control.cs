@@ -50,7 +50,7 @@ namespace IDE_WPF.Controls
 
         private VisualCollection visuals;
 
-        public List<Controls> Controls;
+        public List<Control> Controls;
 
         public DrawingVisual Visual { get; protected set; }
 
