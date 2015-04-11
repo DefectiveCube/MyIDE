@@ -1,0 +1,79 @@
+﻿<Window x:Class="IDE_WPF.ProjectDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Name="ProjectDialogWindow"
+        Title="New Project" Height="400" Width="600" Background="Transparent" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" BorderThickness="5">
+    
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="SteelBlue"/>
+        </Style>        
+        
+        <Style x:Key="ToggleButtonStyle" BasedOn="{StaticResource ButtonStyle}" TargetType="ToggleButton">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="SteelBlue"/>
+        </Style>
+        
+        <Style x:Name="LabelStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        
+        <Style x:Name="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="SteelBlue"/>
+        </Style>
+    </Window.Resources>
+    
+    <Window.BorderBrush>
+        <RadialGradientBrush RadiusX="0.8" RadiusY="0.8">            
+            <GradientStop Color="Transparent" Offset="1"/>
+            <GradientStop Color="Transparent" Offset=".9"/>
+            <GradientStop Color="Black" Offset=".8"/>
+        </RadialGradientBrush>
+    </Window.BorderBrush>
+
+    <Grid Background="MidnightBlue">        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        
+        <Rectangle Grid.Row="0" Grid.Column="1" Fill="Transparent">
+            <Rectangle.Effect>
+                <DropShadowEffect
+                    Color="Black"
+                    Direction="270"
+                    BlurRadius="10"                    
+                    />
+            </Rectangle.Effect>
+        </Rectangle>
+        
+        <StackPanel Background="MidnightBlue" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <ToggleButton Content="Console Application" Height="200" Width="200"/>
+                <ToggleButton Content="Class Library" Height="200" Width="200" IsChecked="True"/>
+            </StackPanel>
+
+            <Label>Project Name:</Label>
+            <TextBox x:Name="ProjectNameTB" Margin="5" Text="{Binding Path=ProjectName, ElementName=ProjectDialogWindow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
+
+            <Label>Path:</Label>
+            <TextBox x:Name="ProjectPathTB" Margin="5" IsReadOnly="True" Text="{Binding Path=ProjectPath, ElementName=ProjectDialogWindow, Mode=OneWay}"/>
+
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button x:Name="CreateButton" Content="Create"/>
+                <Button x:Name="CancelButton" Content="Cancel" Click="Button_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

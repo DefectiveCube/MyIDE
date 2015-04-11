@@ -1,0 +1,23 @@
+﻿<Window x:Class="IDE_WPF.OpenProjectDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Open Project" Height="400" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" BorderThickness="5">
+    
+    <Window.Resources>
+        
+    </Window.Resources>
+    
+    <Grid Background="MidnightBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="8*" />
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel>
+            <Button Height="100" Width="100">New</Button>
+            <Button Height="100" Width="100">Recent</Button>
+            <Button Height="100" Width="100">Browse</Button>
+            <Button Height="100" Width="100">Online</Button>
+        </StackPanel>
+    </Grid>
+</Window>

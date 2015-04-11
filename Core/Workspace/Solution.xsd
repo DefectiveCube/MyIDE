@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Solution"
+    targetNamespace="http://tempuri.org/Solution.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/Solution.xsd"
+    xmlns:mstns="http://tempuri.org/Solution.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="Solution">    
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Id" type="guid" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Version" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Path" type="filePath" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="Project" minOccurs="0"/>
+      </xs:all>
+    </xs:complexType>   
+  </xs:element>
+
+  <xs:element name="Project">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Id" type="guid" minOccurs="1" maxOccurs="1"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="guid">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="filePath">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="^(?:[a-zA-Z]\:|\\\\[\w\.]+\\[\w.$]+)\\(?:[\w]+\\)*\w([\w.])+$"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
