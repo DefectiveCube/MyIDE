@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace IDE_WPF.Controls
@@ -14,10 +15,10 @@ namespace IDE_WPF.Controls
         List<MenuItem> Items;
 
         public Menu()
-        {
-            
+        {            
             Height = 20;
             Items = new List<MenuItem>();
+            IsHitTestVisible = true;
         }
 
         public override void OnDraw()
@@ -45,6 +46,13 @@ namespace IDE_WPF.Controls
         public void Add(MenuItem item)
         {
             Items.Add(item);
+
+            Visual.Children.Add(item.Visual);
+        }
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseDown(e);
         }
     }
 }

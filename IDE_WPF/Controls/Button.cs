@@ -31,24 +31,14 @@ namespace IDE_WPF.Controls
         {
             using(var context = Visual.RenderOpen())
             {
-                context.DrawRectangle(Brushes.Silver, new Pen(Brushes.Black, 1.0), new Rect(new Size(Width, 20)));
-                context.DrawText(new FormattedText(Text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Consolas"), 16, Brushes.Black), new Point(0,0));
+                context.DrawRectangle(Brushes.Silver, new Pen(Brushes.Black, 1.0), new Rect(Position, new Size(Width, Height)));
+                context.DrawText(new FormattedText(Text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface("Consolas"), 16, Brushes.Black), Position);
             }
         }
 
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
-        }
-
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            base.OnMouseLeftButtonDown(e);
-        }
-
-        protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters)
-        {
-            return new PointHitTestResult(this, hitTestParameters.HitPoint);
         }
     }
 }

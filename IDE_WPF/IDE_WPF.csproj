@@ -137,10 +137,6 @@
     </Compile>
     <Compile Include="Controls\Tooltip.cs" />
     <Compile Include="Controls\VisualEditor.cs" />
-    <Page Include="Dictionary1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Documentation\ClassAccess.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

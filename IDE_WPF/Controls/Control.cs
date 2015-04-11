@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,17 @@ namespace IDE_WPF.Controls
 
     public class Control : FrameworkElement
     {
-        public static readonly DependencyProperty PaddingProperty = DependencyProperty.Register("Padding", typeof(Thickness), typeof(Control));
+        public static readonly RoutedEvent ClickEvent;
+        public static readonly DependencyProperty BackgroundColorProperty;
+        public static readonly DependencyProperty PaddingProperty;
+
+        static Control()
+        {
+            ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(Control));
+
+            BackgroundColorProperty = DependencyProperty.Register("BackgroundColor", typeof(Color), typeof(Control), new FrameworkPropertyMetadata() { AffectsRender = true });
+            PaddingProperty = DependencyProperty.Register("Padding", typeof(Thickness), typeof(Control), new FrameworkPropertyMetadata() { AffectsRender = true });           
+        }
 
         public Thickness Padding
         {
@@ -31,7 +42,15 @@ namespace IDE_WPF.Controls
 
         public Anchor Anchor { get; set; }
 
+        /// <summary>
+        /// Absolute Position
+        /// </summary>
+        /// <returns></returns>
+        public Point Position { get; set; }
+
         private VisualCollection visuals;
+
+        public List<Controls> Controls;
 
         public DrawingVisual Visual { get; protected set; }
 
@@ -50,7 +69,7 @@ namespace IDE_WPF.Controls
         public Control()
         {
             KeyBindings = new InputManager();
-
+            
             KeyDown += KeyBindings.KeyDown;
             KeyUp += KeyBindings.KeyUp;
 
@@ -60,6 +79,27 @@ namespace IDE_WPF.Controls
 
             visuals = new VisualCollection(this);
             Visual = new DrawingVisual();
+
+            //AddHandler(ClickEvent, (RoutedEventHandler)Mouse_Down, true);
+            //AddHandler(UIElement.MouseDownEvent, (RoutedEventHandler)Mouse_Down, true);
+        }
+
+        public IEnumerable<Control> HitTest(Point p)
+        {
+            foreach (var c in Controls)
+            {
+                if(VisualTreeHelper.HitTest(c.Visual,p) != null)
+                {
+                    yield return c;
+                }
+            }
+
+            yield break;
+        }
+
+        private void Mouse_Down(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("Down");
         }
 
         private void IDEControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -83,5 +123,10 @@ namespace IDE_WPF.Controls
         }
 
         public virtual void OnDraw() { }
+
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            Debug.WriteLine("Rendering");
+        }
     }
 }

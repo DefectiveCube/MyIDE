@@ -80,18 +80,17 @@ namespace IDE_WPF
             Height = 768;
             Width = 1024;
 
-//            WindowState = WindowState.Maximized;
-
             var box = new CodeBox();
             var menu = new Menu();
-            var button = new Button();
-
-            button.Height = 10;
-            button.Width = 40;
-            button.Text = "Hello";
+            var MinimizeButton = new Button() { Height = 10, Width = 40, Text = "_", Position = new Point(20, 2) };
+            var RestoreButton = new Button() { Height = 10, Width = 40, Text = "O", Position = new Point(40, 2) };
+            var CloseButton = new Button() { Height = 10, Width = 40, Text = "X", Position = new Point(60, 2) };
+            
+            CloseButton.MouseDown += CloseButton_MouseDown;
 
             box.Text = "public class Test { ... }";
             box.Margin = new Thickness(0, 20, 0, 0);
+            box.Padding = new Thickness(10);
 
             menu.Width = 1024;
             menu.Height = 20;
@@ -102,7 +101,14 @@ namespace IDE_WPF
 
             Add(menu);
             Add(box);
-            Add(button);
+            Add(MinimizeButton);
+            Add(RestoreButton);
+            Add(CloseButton);
+        }
+
+        private void CloseButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #region Workspace Event Handlers
